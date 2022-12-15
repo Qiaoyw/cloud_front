@@ -54,7 +54,7 @@ export default {
       console.log(this.$store.state.nationalId)
       console.log("2222"+this.id)
       var jsondata={id: this.id}
-      this.$axios.post('http://10.251.254.107:8081/data/getLatestPolicyById',jsondata).then(res=>{
+      this.$axios.post('http://localhost:8088/data/getLatestPolicyById',jsondata).then(res=>{
         console.log(res);
         this.page = res.data.data
       })

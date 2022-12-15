@@ -12,7 +12,7 @@ const mutations = {
 const actions = {
     //同步获取最近浏览
     async getCommentList({commit}, questionid){
-        const commentList=await this.$axios.post('http://10.251.254.107:8081/getcomments', questionid).then( res => {
+        const commentList=await this.$axios.post('http://localhost:8088/getcomments', questionid).then( res => {
             console.log("action:"+questionid)
             if(res.data.data === null){
                 return null;

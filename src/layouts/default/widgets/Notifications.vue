@@ -83,7 +83,7 @@
       },
       // 显示订阅内容
       async getNewMessage(){
-        await this.$axios.get('http://10.251.254.107:8081/subscription/brief').then(res=>{
+        await this.$axios.get('http://localhost:8088/subscription/brief').then(res=>{
           // console.log(res)
           if(res.data.message==="您未登录"){
             alert('请先登录后再查看')
@@ -111,7 +111,7 @@
       },
       // 显示订阅消息数量
       showFlag(){
-        this.$axios.get('http://10.251.254.107:8081/subscription/size').then(res=>{
+        this.$axios.get('http://localhost:8088/subscription/size').then(res=>{
           if(res.data.message==="您未登录"){
                 // alert('请先登录后再查看')
                 this.showlist = false
@@ -126,7 +126,7 @@
             this.cntFlag = false
           }
         })
-        // this.$axios.get('http://10.251.254.107:8081/subscription/brief').then(res=>{
+        // this.$axios.get('http://localhost:8088/subscription/brief').then(res=>{
         //   if(res.data.message==="您未登录"){
         //     // alert('请先登录后再查看')
         //     this.showlist = false
@@ -164,7 +164,7 @@
     },
     mounted() {
       // this.showFlag()
-      this.timer = setInterval(this.showFlag, 1000);
+      // this.timer = setInterval(this.showFlag, 1000);
     },
 
   }

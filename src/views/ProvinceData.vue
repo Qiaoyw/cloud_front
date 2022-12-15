@@ -208,7 +208,7 @@ export default {
       if(_this.chooseProvince!== ''){
         // console.log(_this.chooseProvince)
         if(_this.chooseProvince ==='China'){
-          _this.$axios.get('http://10.251.254.107:8081/data/h-China').then(function(resp) {
+          _this.$axios.get('http://localhost:8088/data/h-China').then(function(resp) {
             _this.Province = resp.data.data;
             _this.date = _this.Province.map(obj => {return obj.last_Update});
             for(let i =0 ;i<_this.date.length;i++){
@@ -222,7 +222,7 @@ export default {
 
         }
         else{
-          _this.$axios.get('http://10.251.254.107:8081/data/h-province?province='+ _this.chooseProvince).then(function(resp) {
+          _this.$axios.get('http://localhost:8088/data/h-province?province='+ _this.chooseProvince).then(function(resp) {
             _this.Province = resp.data.data;
             _this.date = _this.Province.map(obj => {return obj.last_Update});
             for(let i =0 ;i<_this.date.length;i++){

@@ -135,8 +135,6 @@
           <el-card style="margin-top: 15px ;width: 100%">
             <v-tabs v-model="value">
               <v-tab style="font-size: 20px">疫情数据</v-tab>
-              <v-tab style="font-size: 20px">出行预警</v-tab>
-              <v-tab style="font-size: 20px">疫情轨迹</v-tab>
               <v-tab style="font-size: 20px">当前位置</v-tab>
             </v-tabs>
             <el-table
@@ -245,454 +243,19 @@
                 </template>
               </el-table-column>
 
-              <el-table-column
-                  prop="vaccinated"
-                  label="疫苗接种"
-                  align="center">
-                <template slot="header" >
-                  <span style="font-size: 18px;font-weight:bold;">疫苗(剂次)</span>
-                </template>
-                <template slot-scope="item">
-                  <span style="color:#4527A0;font-weight:bold;font-size: 20px">{{item.row.vaccinated}}</span>
-                </template>
-              </el-table-column>
+<!--              <el-table-column-->
+<!--                  prop="vaccinated"-->
+<!--                  label="疫苗接种"-->
+<!--                  align="center">-->
+<!--                <template slot="header" >-->
+<!--                  <span style="font-size: 18px;font-weight:bold;">疫苗(剂次)</span>-->
+<!--                </template>-->
+<!--                <template slot-scope="item">-->
+<!--                  <span style="color:#4527A0;font-weight:bold;font-size: 20px">{{item.row.vaccinated}}</span>-->
+<!--                </template>-->
+<!--              </el-table-column>-->
             </el-table>
             <div v-else-if="value === 1">
-              <v-row>
-                <v-col cols="12" md="6">
-                  <v-btn
-
-                      class="ma-2"
-                      outlined
-                      color="indigo"
-                      @click="changeWay"
-                  >
-                    <v-icon >mdi-cached</v-icon>
-                    <span v-if="!way">查看飞机</span>
-                    <span v-else>查看铁路</span>
-                  </v-btn>
-                  <v-btn v-if="way"
-                         class="ma-2"
-                         outlined
-                         color="indigo"
-                         @click="changeGoOrAr"
-                  >
-                    <span v-if="!goOrAr">风险地区出发</span>
-                    <span v-else>风险地区到达</span>
-                  </v-btn>
-                  <el-switch
-                      v-model="value1"
-                      active-text="显示轨迹"
-                      style="margin-left: 0px"
-                  >
-                  </el-switch>
-                </v-col>
-                <v-col cols="12" md="6">
-                </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-text-field
-                      label="出发地"
-                      single-line
-                      hide-details
-                      v-model="searchBeginning"
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-text-field
-                      label="目的地"
-                      single-line
-                      hide-details
-                      v-model="searchArrival"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="2" v-if="!way">
-                  <v-btn
-                      depressed
-                      color="primary"
-                      @click="searchTrain"
-                  >
-                    搜索
-                  </v-btn>
-                </v-col>
-                <v-col  cols="12" md="2" v-if="!way">
-                  <v-btn depressed @click="changeFlag">
-                    返回/清空
-                  </v-btn>
-                </v-col>
-                <v-col cols="12" md="2" v-if="way">
-                  <v-btn
-                      depressed
-                      color="primary"
-                      @click="searchPlane"
-                  >
-                    搜索
-                  </v-btn>
-                </v-col>
-                <v-col  cols="12" md="2" v-if="way">
-                  <v-btn depressed @click="changeFlag2">
-                    返回/清空
-                  </v-btn>
-                </v-col>
-              </v-row>
-              <v-row>
-                <el-table
-                    v-if="way && goOrAr"
-                    :data="airGo"
-                    style="width: 100%;font-size: 16px"
-                    height="440"
-                >
-                  <el-table-column
-                      sortable
-                      prop="number"
-                      label="航班号"
-                      style="font-weight:bold"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">航班号</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.number}}</span>
-                    </template>
-                  </el-table-column>
-
-                  <el-table-column
-                      sortable
-                      prop="beginning"
-                      label="起飞机场"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">起飞机场</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.beginning}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                      sortable
-                      prop="arrival"
-                      label="到达机场"
-                      align="center"
-                  >
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">到达机场</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.arrival}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                      sortable
-                      prop="actualTime"
-                      label="起飞时间"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">起飞时间</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;">{{item.row.actualTime}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                      sortable
-                      prop="status"
-                      label="状态"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">状态</span>
-                    </template>
-                    <template slot-scope="item">
-                      <v-chip
-                          :color="getColor2(item.row.status)"
-                          dark
-                          style="font-weight: bold"
-                      >
-                        {{ item.row.status }}
-                      </v-chip>
-                      <!--                    <span style="color:#000000;font-size: 20px;">{{item.row.status}}</span>-->
-                    </template>
-                  </el-table-column>
-                </el-table>
-
-                <el-table
-                    v-if="way && !goOrAr"
-                    :data="airArrival"
-                    style="width: 100%;font-size: 16px"
-                    height="440"
-                >
-                  <el-table-column
-                      sortable
-                      prop="number"
-                      label="航班号"
-                      style="font-weight:bold"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">航班号</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.number}}</span>
-                    </template>
-                  </el-table-column>
-
-                  <el-table-column
-                      sortable
-                      prop="beginning"
-                      label="起飞机场"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">起飞机场</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.beginning}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                      sortable
-                      prop="arrival"
-                      label="到达机场"
-                      align="center"
-                  >
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">到达机场</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.arrival}}</span>
-                    </template>
-                  </el-table-column>
-                  <!--                <el-table-column-->
-                  <!--                        sortable-->
-                  <!--                        prop="terminal"-->
-                  <!--                        label="起飞航站楼"-->
-                  <!--                        style="font-weight:bold"-->
-                  <!--                        width="150">-->
-                  <!--                </el-table-column>-->
-                  <!--                <el-table-column-->
-                  <!--                        sortable-->
-                  <!--                        prop="scheduledTime"-->
-                  <!--                        label="预计起飞时间"-->
-                  <!--                        width="150">-->
-                  <!--                </el-table-column>-->
-                  <el-table-column
-                      sortable
-                      prop="actualTime"
-                      label="起飞时间"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">起飞时间</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;">{{item.row.actualTime}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                      sortable
-                      prop="status"
-                      label="状态"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">状态</span>
-                    </template>
-                    <template slot-scope="item">
-                      <!--                    <span style="color:#000000;font-size: 20px;">{{item.row.status}}</span>-->
-                      <v-chip
-                          :color="getColor2(item.row.status)"
-                          dark
-                          style="font-weight: bold"
-                      >
-                        {{ item.row.status }}
-                      </v-chip>
-
-                    </template>
-                  </el-table-column>
-                </el-table>
-
-                <el-table
-                    v-if="!way && flag"
-                    :data="train"
-                    style="width: 100%;font-size: 16px"
-                    height="440px"
-                >
-                  <el-table-column
-                      sortable
-                      prop="number"
-                      label="车次"
-                      style="font-weight:bold"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">车次</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px">{{item.row.number}}</span>
-                    </template>
-                  </el-table-column>
-
-                  <el-table-column
-
-                      sortable
-                      prop="beginning"
-                      label="出发地"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">出发地</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.beginning}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-
-                      sortable
-                      prop="arrival"
-                      label="目的地"
-                      align="center"
-                  >
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">目的地</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.arrival}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                      sortable
-                      prop="beginTime"
-                      label="出发时间"
-                      style="font-weight:bold"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">出发时间</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;">{{item.row.beginTime}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                      sortable
-                      prop="arriveTime"
-                      label="到达时间"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">到达时间</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;">{{item.row.arriveTime}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-
-                      prop="distance"
-                      label=""
-                      width="0"
-                      style="display: none">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;"></span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;">{{item.row.distance}}</span>
-                    </template>
-                  </el-table-column>
-                </el-table>
-
-                <el-table
-                    v-if="!way && !flag"
-                    :data="train2"
-                    style="width: 100%;font-size: 16px"
-                    height="440px"
-                >
-                  <el-table-column
-                      sortable
-                      prop="number"
-                      label="车次"
-                      style="font-weight:bold"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">车次</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px">{{item.row.number}}</span>
-                    </template>
-                  </el-table-column>
-
-                  <el-table-column
-                      sortable
-                      prop="beginning"
-                      label="出发地"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">出发地</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.beginning}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                      sortable
-                      prop="arrival"
-                      label="目的地"
-                      align="center"
-                  >
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">目的地</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.arrival}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                      sortable
-                      prop="beginTime"
-                      label="出发时间"
-                      align="center"
-                      style="font-weight:bold">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">出发时间</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;">{{item.row.beginTime}}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                      sortable
-                      prop="arriveTime"
-                      label="到达时间"
-                      align="center">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;">到达时间</span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;">{{item.row.arriveTime}}</span>
-                    </template>
-                  </el-table-column>
-
-                  <el-table-column
-
-                      prop="distance"
-                      label=""
-                      width="0"
-                      style="display: none">
-                    <template slot="header" >
-                      <span style="font-size: 18px;font-weight:bold;"></span>
-                    </template>
-                    <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;">{{item.row.distance}}</span>
-                    </template>
-                  </el-table-column>
-                </el-table>
-              </v-row>
-            </div>
-            <div v-else-if="value === 2" style="min-height: 560px;">
-              <el-row :span="8"
-                      style="margin-bottom: 10px;margin-top: 10px"
-                      v-for="(item, index) in trajectory"
-                      :key="index"
-              >
-                <el-card shadow="hover" style="letter-spacing: .5px;line-height: 25px">
-                  {{item.trajectory}}
-                </el-card>
-              </el-row>
-            </div>
-            <div v-else-if="value === 3">
               <div v-if="canLocate">
                 <v-row style="margin-top: 20px">
                   <strong>当前位置：</strong>{{location.address}}
@@ -886,6 +449,7 @@ export default {
   name: "ChinaMap",
   data() {
     return {
+      cityInfoCard:'',
       canLocate: false,
       isCity: false,
       bookedProvinces: [],
@@ -928,6 +492,7 @@ export default {
       todayDead: '',
       showAll: false,
       myChart: null,
+      isSelect:false,
       headers: [
         { text: '是否订阅', value: 'action', align: 'start', sortable: false},
         { text: '省份', value: 'provinceName'},
@@ -1058,13 +623,13 @@ export default {
   },
   methods: {
     returnWholeCountry() {
-      option.series[0].map = 'china';
+      option.series.map = 'china';
       option.geo.map = 'china';
-      const data = option.series[0].data
+      const data = option.series.data
       for (let i in data) {
         if (data[i].dataset !== undefined) {
           if (this.showAll) {
-            data[i].value = data[i].dataset[0]
+            data[i].value = data[i].dataset
           } else {
             data[i].value = data[i].dataset[1]
           }
@@ -1109,7 +674,7 @@ export default {
           self.location.district = data.addressComponent.district;
           self.location.address = data.formattedAddress;
           self.$axios.get('/data/province').then(res => {
-            res.data.data[0].children.forEach(province => {
+            res.data.data.children.forEach(province => {
               if (province.name === self.location.province.substr(0,2)) {
                 self.location.provinceInfo.confirm = province.total.confirm
                 self.location.provinceInfo.dead = province.total.dead
@@ -1194,7 +759,8 @@ export default {
     },
     getData() {
       this.$axios.get('/data/province').then(res => {
-        let list = this.myMap(res.data.data[0].children, item => {
+        // console.log(res)
+        let list = this.myMap(res.data.data.children, item => {
           const value = this.showAll ? item.total.confirm : item.total.nowConfirm
           return {
             name: item.name,
@@ -1204,18 +770,20 @@ export default {
             ]
           }
         })
-        this.heal = res.data.data[0].total.heal
-        this.totalConfirm = res.data.data[0].total.confirm
-        this.nowConfirm = res.data.data[0].total.nowConfirm
-        this.dead = res.data.data[0].total.dead
-        this.todayConfirm = res.data.data[0].today.confirm
-        this.todayDead = res.data.data[0].today.dead === undefined ? 0 : res.data.data[0].today.dead
+        this.heal = res.data.data.total.heal
+        this.totalConfirm = res.data.data.total.confirm
+        this.nowConfirm = res.data.data.total.nowConfirm
+        this.dead = res.data.data.total.dead
+        this.todayConfirm = res.data.data.today.confirm
+        this.todayDead = res.data.data.today.dead === undefined ? 0 : res.data.data.today.dead
 
         // 展示浮标信息
-        option.series[0].data = list
+        option.series.data = list
         option.tooltip.formatter = function (params) {
+          // console.log("params.data数据")
+          // console.log(params.data)
           if (params.data) {
-            return params.name + '<br/>累计确诊人数：' + params.data.dataset[0] + '<br/>现存确诊人数：' + params.data.dataset[1] +
+            return params.name + '<br/>累计确诊人数：' + params.data.dataset + '<br/>现存确诊人数：' + params.data.dataset[1] +
                 '<br/>今日确诊人数：' + params.data.dataset[2] + '<br/>死亡人数：' + params.data.dataset[3] +
                 '<br/>治愈人数：' + params.data.dataset[5]
           }
@@ -1239,7 +807,7 @@ export default {
           }
 
           else{
-            this.city = this.contains(cityArr[0], cityName) ? cityName : this.city
+            this.city = this.contains(cityArr, cityName) ? cityName : this.city
             this.isCity = this.city !== cityName
           }
 
@@ -1260,10 +828,10 @@ export default {
 
           this.isSelect = false
           // 查找是否有对应城市有则加载城市
-          for (let i = 0, len = cityArr[0].length; i < len; i++) {
-            if (cityName === cityArr[0][i]) {
+          for (let i = 0, len = cityArr.length; i < len; i++) {
+            if (cityName === cityArr[i]) {
               // 获取得城市拼音
-              this.showCity(cityArr[0][i], cityArr[1][i]);
+              this.showCity(cityArr[i], cityArr[1][i]);
               const shownProvince = []
               this.provinceData.forEach(pro => {
                 if (pro.provinceName === cityName) {
@@ -1271,7 +839,7 @@ export default {
                 }
               })
               this.db.forEach(city => {
-                if (city.provinceName === cityArr[0][i]) {
+                if (city.provinceName === cityArr[i]) {
                   shownProvince.push(
                       {
                         provinceName: city.name,
@@ -1300,11 +868,120 @@ export default {
         });
       })
     },
+
+    // getData() {
+    //   this.$axios.get('/data/province').then(res => {
+    //     let list = this.myMap(res.data.data.children, item => {
+    //       const value = this.showAll ? item.total.confirm : item.total.nowConfirm
+    //       return {
+    //         name: item.name,
+    //         value,
+    //         dataset: [
+    //           item.total.confirm, item.total.nowConfirm, item.today.confirm, item.total.dead, item.name, item.total.heal
+    //         ]
+    //       }
+    //     })
+    //     this.heal = res.data.data.total.heal
+    //     this.totalConfirm = res.data.data.total.confirm
+    //     this.nowConfirm = res.data.data.total.nowConfirm
+    //     this.dead = res.data.data.total.dead
+    //     this.todayConfirm = res.data.data.today.confirm
+    //     this.todayDead = res.data.data.today.dead === undefined ? 0 : res.data.data.today.dead
+    //
+    //     // 展示浮标信息
+    //     option.series.data = list
+    //     option.tooltip.formatter = function (params) {
+    //       if (params.data) {
+    //         return params.name + '<br/>累计确诊人数：' + params.data.dataset + '<br/>现存确诊人数：' + params.data.dataset[1] +
+    //             '<br/>今日确诊人数：' + params.data.dataset[2] + '<br/>死亡人数：' + params.data.dataset[3] +
+    //             '<br/>治愈人数：' + params.data.dataset[5]
+    //       }
+    //       return '暂无数据'
+    //     }
+    //
+    //     this.mycharts.setOption(option)
+    //
+    //     const cityArr = [
+    //       ['上海', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '广西', '海南', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '北京', '天津', '重庆', '香港', '澳门', '台湾'],
+    //       ['shanghai', 'hebei', 'shanxi', 'neimenggu', 'liaoning', 'jilin', 'heilongjiang', 'jiangsu', 'zhejiang', 'anhui', 'fujian', 'jiangxi', 'shandong', 'henan', 'hubei', 'hunan', 'guangdong', 'guangxi', 'hainan', 'sichuan', 'guizhou', 'yunnan', 'xizang', 'shanxi1', 'gansu', 'qinghai', 'ningxia', 'xinjiang', 'beijing', 'tianjin', 'chongqing', 'xianggang', 'aomen', 'taiwan']
+    //     ];
+    //     this.mycharts.on('click', param => {
+    //       // 城市中文名
+    //       const cityName = param.data.dataset[4];
+    //       console.log(cityName)
+    //       if(this.city.length === 0){
+    //         this.city = cityName
+    //         console.log(this.city)
+    //         this.isCity = true
+    //       }
+    //
+    //       else{
+    //         this.city = this.contains(cityArr, cityName) ? cityName : this.city
+    //         this.isCity = this.city !== cityName
+    //       }
+    //
+    //       // console.log(this.cxy_totalConfirm)
+    //       this.$axios.get('/subscription/list').then(res => {
+    //         if (res.data.status === 200) {
+    //
+    //           for(let pros in res.data.data){
+    //             // console.log(res.data.data[pros].province === res.data.data[pros].location)
+    //             // console.log(res.data.data[pros].location)
+    //             if(res.data.data[pros].book && res.data.data[pros].province === this.city && (res.data.data[pros].province !== res.data.data[pros].location)){
+    //               this.bookedProvinces1.push(res.data.data[pros].location)
+    //             }
+    //           }
+    //           // console.log(this.bookedProvinces1)
+    //         }
+    //       })
+    //
+    //       this.isSelect = false
+    //       // 查找是否有对应城市有则加载城市
+    //       for (let i = 0, len = cityArr.length; i < len; i++) {
+    //         if (cityName === cityArr[i]) {
+    //           // 获取得城市拼音
+    //           this.showCity(cityArr[i], cityArr[1][i]);
+    //           const shownProvince = []
+    //           this.provinceData.forEach(pro => {
+    //             if (pro.provinceName === cityName) {
+    //               shownProvince.push(pro)
+    //             }
+    //           })
+    //           this.db.forEach(city => {
+    //             if (city.provinceName === cityArr[i]) {
+    //               shownProvince.push(
+    //                   {
+    //                     provinceName: city.name,
+    //                     deceased: city.deceased,
+    //                     active: city.active,
+    //                     confirmed: city.confirmed,
+    //                     recovered: city.recovered,
+    //                     vaccinated: city.vaccinated,
+    //                     grade: city.grade,
+    //                     priority: city.priority
+    //                   }
+    //               )
+    //             }
+    //           })
+    //           this.shownProvince = shownProvince
+    //           for (let i in shownProvince){
+    //             if(shownProvince[i].provinceName === this.city){
+    //               this.cityInfoCard = shownProvince[i]
+    //               console.log(this.cityInfoCard)
+    //             }
+    //           }
+    //           return
+    //         }
+    //       }
+    //       //没有找到对应城市的话，那么返回到全国地图
+    //     });
+    //   })
+    // },
     showCity(zhName, pyName) {
       // console.log(this.cityInfoCard)
       require('echarts/map/js/province/' + pyName)
       option.geo.map = zhName;
-      option.series[0].map = zhName;
+      option.series.map = zhName;
       // 深拷贝，另建option以免丢失原始option数据
       const nameAmend = require('@/assets/nameAmend.json')
       const cityOption = JSON.parse(JSON.stringify(option));
@@ -1360,8 +1037,8 @@ export default {
           // table那里加一个ref="table"
         })
       }
-      cityOption.series[0].data = shownData
-      cityOption.geo = cityOption.series[0];
+      cityOption.series.data = shownData
+      cityOption.geo = cityOption.series;
       this.mycharts.setOption(cityOption);
     },
     BookCity(name) {
@@ -1370,7 +1047,7 @@ export default {
       var jsondata = {location: name};
       var qs = require('qs')
       // console.log(jsondata)
-      this.$axios.post('http://10.251.254.107:8081/subscription/add', qs.stringify(jsondata), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(res => {
+      this.$axios.post('http://localhost:8088/subscription/add', qs.stringify(jsondata), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(res => {
         if (res.data.message === "用户未登录") {
           this.$message({
             type: 'warning',
@@ -1495,17 +1172,17 @@ export default {
     switchMap() {
       this.showAll = !this.showAll;
       const option = this.mycharts.getOption()
-      const data = option.series[0].data
+      const data = option.series.data
       for (let i in data) {
         if (data[i].dataset !== undefined) {
           if (this.showAll) {
-            data[i].value = data[i].dataset[0]
+            data[i].value = data[i].dataset
           } else {
             data[i].value = data[i].dataset[1]
           }
         }
       }
-      option.series.geo = option.series[0];
+      option.series.geo = option.series;
       this.mycharts.setOption(option)
     },
     getColor(risk) {
@@ -1737,7 +1414,7 @@ export default {
     getProvinceTotal() {
       const _this = this;
       this.$axios.get('/data/province').then(function (resp) {
-        _this.tempData = resp.data.data[0].children;
+        _this.tempData = resp.data.data.children;
         //name=_this.tempData.name;
         //alert(name)
         // console.log(_this.tempData)
@@ -1747,7 +1424,7 @@ export default {
       //alert(_this.provinceData)
     },
     creatTable() {
-      // console.log(this.tempData[0].name)
+      // console.log(this.tempData.name)
       // eslint-disable-next-line no-unused-vars
       var provinceName = '';
       // eslint-disable-next-line no-unused-vars
@@ -1763,7 +1440,7 @@ export default {
       var temp = [];
       this.$axios.get('/data/vaccine').then(res => {
         this.$axios.get('/data/province').then(resp => {
-          resp.data.data[0].children.forEach(province => {
+          resp.data.data.children.forEach(province => {
             let item = null
             res.data.data.forEach(pro => {
               if (pro.province === province.name) {
@@ -2122,7 +1799,7 @@ export default {
     this.mycharts.setOption(option)
 
     this.$axios.get('/data/province').then(res => {
-      res.data.data[0].children.forEach(province => {
+      res.data.data.children.forEach(province => {
         const provinceName = province.name
         province.children.forEach(city => {
           if (city.name !== '境外输入' && city.name !== '地区待确认' &&
@@ -2221,7 +1898,7 @@ export default {
   },
   beforeDestroy() {
     option.geo.map = 'china';
-    option.series[0].map = 'china';
+    option.series.map = 'china';
     this.myChart.setOption(option)
   }
 }

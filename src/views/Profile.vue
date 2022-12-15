@@ -186,7 +186,7 @@ export default {
         },
       },
       newAvatar:'',
-      avatarUrl:'http://10.251.254.107:8081/upload',
+      avatarUrl:'http://localhost:8088/upload',
       //file:'',
       files:{},
       Pwds: {
@@ -283,7 +283,7 @@ export default {
         withCredentials: true
       })
       // url为后台接口
-      instance.put('http://10.251.254.107:8081/upload', param).then(res => {
+      instance.put('http://localhost:8088/upload', param).then(res => {
         //this.$message.success(res.data.message)
         // alert(res.data.message);
         _this.$message({
