@@ -1046,7 +1046,7 @@ export default {
       var jsondata = {location: name};
       var qs = require('qs')
       // console.log(jsondata)
-      this.$axios.post('http://localhost:8088/subscription/add', qs.stringify(jsondata), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(res => {
+      this.$axios.post('http://121.40.243.17:8081/subscription/add', qs.stringify(jsondata), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(res => {
         if (res.data.message === "用户未登录") {
           this.$message({
             type: 'warning',

@@ -269,7 +269,7 @@ export default {
       const _this = this;
       if(i === 2){
         //&消除用户登陆状态
-        await this.$axios.delete('http://localhost:8088/logout').then(resp=> {
+        await this.$axios.delete('http://121.40.243.17:8081/logout').then(resp=> {
           if(resp.data.status===0){
             let token = ""
             sessionStorage.setItem("token",token);
@@ -319,7 +319,7 @@ export default {
       }
       else{
         if(_this.inputcode === _this.emailcode){
-          this.$axios.post('http://localhost:8088/register/',{
+          this.$axios.post('http://121.40.243.17:8081/register/',{
             username: _this.name,
             email:_this.email,
             password:_this.password,
@@ -377,7 +377,7 @@ export default {
         })
       }
       else {
-        this.$axios.post("http://localhost:8088/login/",{
+        this.$axios.post("http://121.40.243.17:8081/login/",{
           password:_this.password,
           email:_this.email,
             }
@@ -431,7 +431,7 @@ export default {
     codesend(){
       const _this = this;
       if(_this.email&&_this.email.match("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$")){
-        this.$axios.post("http://localhost:8088/sendEmail",{
+        this.$axios.post("http://121.40.243.17:8081/sendEmail",{
           email:_this.email,
         }).then(function(resp) {
           if(resp.data.code===200){

@@ -86,7 +86,7 @@ export default {
     cancelLoc(locale){
       var qs = require('qs')
       var jsondata={location: locale}
-      this.$axios.post('http://localhost:8088/subscription/cancel',qs.stringify(jsondata),
+      this.$axios.post('http://121.40.243.17:8081/subscription/cancel',qs.stringify(jsondata),
           {headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then(res=>{
         console.log("hhh"+res);
         if (res.status !== 200) {

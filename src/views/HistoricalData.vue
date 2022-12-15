@@ -191,7 +191,7 @@ export default {
       this.box[0]='美国';
       this.selected[0]='美国';
       let x = 'United States';
-      this.$axios.get('http://localhost:8088/data/history?country=' + x).then(function (resp) {
+      this.$axios.get('http://121.40.243.17:8081/data/history?country=' + x).then(function (resp) {
         _this.Scountry = resp.data.data;
         _this.date = _this.Scountry.map(obj => {
           return obj.date
@@ -260,7 +260,7 @@ export default {
       this.box[1]='印度';
       this.selected[1]='印度';
       let y = 'India';
-      this.$axios.get('http://localhost:8088/data/history?country=' + y).then(function (resp) {
+      this.$axios.get('http://121.40.243.17:8081/data/history?country=' + y).then(function (resp) {
         _this.Scountry = resp.data.data;
         _this.date = _this.Scountry.map(obj => {
           return obj.date
@@ -380,7 +380,7 @@ export default {
     },
     getCountry() {
       const _this = this;
-      this.$axios.get('http://localhost:8088/data/all').then(function (resp) {
+      this.$axios.get('http://121.40.243.17:8081/data/all').then(function (resp) {
         // _this.worldName = resp.data.data;
         _this.worldName = resp.data.data;
         // console.log(_this.worldName)
@@ -399,7 +399,7 @@ export default {
     addCountry: function (x,y) {
       const _this = this;
       this.selected.push(y);
-      this.$axios.get('http://localhost:8088/data/history?country=' + x).then(function (resp) {
+      this.$axios.get('http://121.40.243.17:8081/data/history?country=' + x).then(function (resp) {
         _this.Scountry = resp.data.data;
         _this.date = _this.Scountry.map(obj => {
           return obj.date

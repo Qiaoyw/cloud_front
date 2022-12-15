@@ -251,7 +251,7 @@ export default {
         console.log(title)
         console.log(content)
         var jsondata={title:title, content:content}
-        this.$axios.post('http://localhost:8088/ask',jsondata).then(res=>{
+        this.$axios.post('http://121.40.243.17:8081/ask',jsondata).then(res=>{
           console.log(res);
         })
         this.title = "";

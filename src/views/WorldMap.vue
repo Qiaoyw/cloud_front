@@ -542,7 +542,7 @@ export default {
     },
     getTotalData(){
       console.log("hhhhhhhh")
-      this.$axios.get('http://localhost:8088/data/total').then(res=>{
+      this.$axios.get('http://121.40.243.17:8081/data/total').then(res=>{
         console.log(res)
         this.confirmed = res.data.data.confirmed;
         this.deceased = res.data.data.deceased;
@@ -551,7 +551,7 @@ export default {
     },
     async getCountryData(){
       const nameMap = require('@/assets/world_name_map.json')
-      await this.$axios.get('http://localhost:8088/data/all').then(res =>{
+      await this.$axios.get('http://121.40.243.17:8081/data/all').then(res =>{
         this.data = res.data.data;
         this.data.forEach((country, i) => {
           if (nameMap[country.name] === undefined) {
@@ -597,11 +597,11 @@ export default {
     },
     getAirData(){
       const _this = this;
-      this.$axios.get('http://localhost:8088/data/flightToAbroad').then(function (resp) {
+      this.$axios.get('http://121.40.243.17:8081/data/flightToAbroad').then(function (resp) {
         _this.airGo = resp.data.data;
         _this.airShow = _this.airGo;
         })
-      this.$axios.get('http://localhost:8088/data/flightToChina').then(function (resp) {
+      this.$axios.get('http://121.40.243.17:8081/data/flightToChina').then(function (resp) {
         _this.airArrival = resp.data.data;
       })
     },

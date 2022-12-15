@@ -212,7 +212,7 @@ export default {
       const _this =this;
       if(_this.chooseCountry !== ''){
         if(_this.changeCountry==='World'){
-          _this.$axios.get('http://localhost:8088/data/h-World').then(function(resp) {
+          _this.$axios.get('http://121.40.243.17:8081/data/h-World').then(function(resp) {
             _this.Scountry = resp.data.data;
             _this.date = _this.Scountry.map(obj => {return obj.last_Update});
             _this.total = _this.Scountry.map(obj => {return obj.confirmed});
@@ -222,7 +222,7 @@ export default {
         }
         else{
           // console.log(_this.chooseCountry)
-          _this.$axios.get('http://localhost:8088/data/history?country='+ _this.chooseCountry).then(function(resp) {
+          _this.$axios.get('http://121.40.243.17:8081/data/history?country='+ _this.chooseCountry).then(function(resp) {
             _this.Scountry = resp.data.data;
             _this.date = _this.Scountry.map(obj => {return obj.date});
             _this.total = _this.Scountry.map(obj => {return obj.total_cases})
@@ -247,7 +247,7 @@ export default {
     },
     getCountry(){
       const _this = this;
-      this.$axios.get('http://localhost:8088/data/all').then(function(resp) {
+      this.$axios.get('http://121.40.243.17:8081/data/all').then(function(resp) {
         _this.worldName = resp.data.data;
         // console.log(_this.worldName)
         const nameMap = require('@/assets/world_name_map.json')

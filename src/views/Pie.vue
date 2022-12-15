@@ -229,7 +229,7 @@ export default {
     },
     getTOP15(){
       const _this=this;
-      this.$axios.get('http://localhost:8088/data/top15').then(function(resp) {
+      this.$axios.get('http://121.40.243.17:8081/data/top15').then(function(resp) {
         _this.top15 = resp.data.data;
       //  console.log(_this.top15);
         const nameMap = require('@/assets/world_name_map.json')
@@ -246,7 +246,7 @@ export default {
     },
     getContinent(){
       const _this=this;
-      this.$axios.get('http://localhost:8088/data/continent').then(function(resp) {
+      this.$axios.get('http://121.40.243.17:8081/data/continent').then(function(resp) {
         //alert(resp.data.message)
         _this.continent = resp.data.data;
         console.log(_this.continent);

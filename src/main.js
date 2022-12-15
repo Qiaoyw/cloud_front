@@ -22,7 +22,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 // axios.defaults.headers.common['Authorization'] = localStorage.getItem('Authorization')
 
 axios.interceptors.request.use(config => {
-  config.baseURL = 'http://localhost:8088'
+  config.baseURL = 'http://121.40.243.17:8081'
   config.withCredentials = true // 允许携带token ,这个是解决跨域产生的相关问题
   config.timeout = 10000
   const token = sessionStorage.getItem('token')

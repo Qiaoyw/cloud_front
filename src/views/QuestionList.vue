@@ -396,7 +396,7 @@ export default {
         this.Question_title = "";
         this.Question_content = "";
       } else {
-        this.$axios.post('http://localhost:8088/ask', jsondata).then(res => {
+        this.$axios.post('http://121.40.243.17:8081/ask', jsondata).then(res => {
           console.log(res);
           this.title = "";
           this.content = "";
@@ -411,7 +411,7 @@ export default {
               message: "提交成功！"
             });
             // setTimeout("location.reload()", 500)
-            this.$axios.get('http://localhost:8088/getquestions').then(res=>{
+            this.$axios.get('http://121.40.243.17:8081/getquestions').then(res=>{
               this.questions = res.data.data;
               console.log(this.questions);
               this.questionsNum = this.questions.length;
@@ -428,7 +428,7 @@ export default {
     
     async setAns() {
 
-      await this.$axios.get('http://localhost:8088/getquestions').then(res => {
+      await this.$axios.get('http://121.40.243.17:8081/getquestions').then(res => {
         var num;
         for (num = 1; num <= res.data.data.length; num++) {
           // console.log(num+' ' +res.data.data[num-1].id)
@@ -451,7 +451,7 @@ export default {
       console.log(this.dialog2[id])
     },
     async getQuestions() {
-      await this.$axios.get('http://localhost:8088/getquestions').then(res => {
+      await this.$axios.get('http://121.40.243.17:8081/getquestions').then(res => {
         // console.log(res);
         this.questions = res.data.data;
         console.log(this.questions);
@@ -461,7 +461,7 @@ export default {
     async showAns(id) {
       var user = sessionStorage.getItem("userInfo");
       console.log(user)
-      await this.$axios.post('http://localhost:8088/getcomments', id).then(res => {
+      await this.$axios.post('http://121.40.243.17:8081/getcomments', id).then(res => {
         console.log(res)
         console.log(this.ifshowAns[id])
         if (res.data.data === null && this.ifshowAns[id]==false || res.data.data === null&& this.ifshowAns[id]==null) {
@@ -493,7 +493,7 @@ export default {
       // await this.getCommentList(this.item1.questionid)
     },
     async getAvatar(userid) {
-      await this.$axios.post('http://localhost:8088/userInfo', userid).then(res => {
+      await this.$axios.post('http://121.40.243.17:8081/userInfo', userid).then(res => {
         // console.log(res);
         this.item1.avatar = res.data.data.avatar;
         console.log(this.item1.avatar);
@@ -515,7 +515,7 @@ export default {
           })
         }
       else{
-          this.$axios.post('http://localhost:8088/comment', jsondata).then(res => {
+          this.$axios.post('http://121.40.243.17:8081/comment', jsondata).then(res => {
             console.log(res)
             if (res.data.code === 403) {
               this.$message({
@@ -535,7 +535,7 @@ export default {
             // this.$Message.success('评论成功');
             //更新消息列表
             // await this.getCommentList(id)
-            this.$axios.post('http://localhost:8088/getcomments', id).then(res => {
+            this.$axios.post('http://121.40.243.17:8081/getcomments', id).then(res => {
               this.items[id] = [];
               var num1;
               if (res.data.data) {
@@ -550,7 +550,7 @@ export default {
                 }
               }
             })
-            this.$axios.get('http://localhost:8088/getquestions').then(res=>{
+            this.$axios.get('http://121.40.243.17:8081/getquestions').then(res=>{
               this.questions = res.data.data;
               console.log(this.questions);
               this.questionsNum = this.questions.length;
@@ -574,7 +574,7 @@ export default {
           message: "请登录！"
         })
       } else if (userid === jsondata1.id) {
-        await this.$axios.post('http://localhost:8088/deletecomment', id).then(res => {
+        await this.$axios.post('http://121.40.243.17:8081/deletecomment', id).then(res => {
           
           if (res.data.code === 200) {
             this.$message({
@@ -583,7 +583,7 @@ export default {
             })
             console.log(this.items[id])
           }
-          this.$axios.post('http://localhost:8088/getcomments', qid).then(res => {
+          this.$axios.post('http://121.40.243.17:8081/getcomments', qid).then(res => {
         console.log(qid)
         console.log(res)
               this.items[qid] = [];
@@ -601,7 +601,7 @@ export default {
                 }
               }
             })
-            this.$axios.get('http://localhost:8088/getquestions').then(res=>{
+            this.$axios.get('http://121.40.243.17:8081/getquestions').then(res=>{
               this.questions = res.data.data;
               console.log(this.questions);
               this.questionsNum = this.questions.length;
