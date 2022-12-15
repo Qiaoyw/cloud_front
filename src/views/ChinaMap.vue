@@ -623,13 +623,13 @@ export default {
   },
   methods: {
     returnWholeCountry() {
-      option.series.map = 'china';
+      option.series[0].map = 'china';
       option.geo.map = 'china';
-      const data = option.series.data
+      const data = option.series[0].data
       for (let i in data) {
         if (data[i].dataset !== undefined) {
           if (this.showAll) {
-            data[i].value = data[i].dataset
+            data[i].value = data[i].dataset[0]
           } else {
             data[i].value = data[i].dataset[1]
           }
@@ -778,16 +778,16 @@ export default {
         this.todayDead = res.data.data.today.dead === undefined ? 0 : res.data.data.today.dead
 
         // 展示浮标信息
-        option.series.data = list
+        option.series[0].data = list
         option.tooltip.formatter = function (params) {
           // console.log("params.data数据")
           // console.log(params.data)
           if (params.data) {
-            return params.name + '<br/>累计确诊人数：' + params.data.dataset + '<br/>现存确诊人数：' + params.data.dataset[1] +
+            return params.name + '<br/>累计确诊人数：' + params.data.dataset[0] + '<br/>现存确诊人数：' + params.data.dataset[1] +
                 '<br/>今日确诊人数：' + params.data.dataset[2] + '<br/>死亡人数：' + params.data.dataset[3] +
                 '<br/>治愈人数：' + params.data.dataset[5]
           }
-          return '暂无数据'
+          return '数据暂无'
         }
 
         this.mycharts.setOption(option)
@@ -799,7 +799,6 @@ export default {
         this.mycharts.on('click', param => {
           // 城市中文名
           const cityName = param.data.dataset[4];
-          console.log(cityName)
           if(this.city.length === 0){
             this.city = cityName
             console.log(this.city)
@@ -807,7 +806,7 @@ export default {
           }
 
           else{
-            this.city = this.contains(cityArr, cityName) ? cityName : this.city
+            this.city = this.contains(cityArr[0], cityName) ? cityName : this.city
             this.isCity = this.city !== cityName
           }
 
@@ -828,10 +827,10 @@ export default {
 
           this.isSelect = false
           // 查找是否有对应城市有则加载城市
-          for (let i = 0, len = cityArr.length; i < len; i++) {
-            if (cityName === cityArr[i]) {
+          for (let i = 0, len = cityArr[0].length; i < len; i++) {
+            if (cityName === cityArr[0][i]) {
               // 获取得城市拼音
-              this.showCity(cityArr[i], cityArr[1][i]);
+              this.showCity(cityArr[0][i], cityArr[1][i]);
               const shownProvince = []
               this.provinceData.forEach(pro => {
                 if (pro.provinceName === cityName) {
@@ -839,7 +838,7 @@ export default {
                 }
               })
               this.db.forEach(city => {
-                if (city.provinceName === cityArr[i]) {
+                if (city.provinceName === cityArr[0][i]) {
                   shownProvince.push(
                       {
                         provinceName: city.name,
@@ -981,7 +980,7 @@ export default {
       // console.log(this.cityInfoCard)
       require('echarts/map/js/province/' + pyName)
       option.geo.map = zhName;
-      option.series.map = zhName;
+      option.series[0].map = zhName;
       // 深拷贝，另建option以免丢失原始option数据
       const nameAmend = require('@/assets/nameAmend.json')
       const cityOption = JSON.parse(JSON.stringify(option));
@@ -1037,8 +1036,8 @@ export default {
           // table那里加一个ref="table"
         })
       }
-      cityOption.series.data = shownData
-      cityOption.geo = cityOption.series;
+      cityOption.series[0].data = shownData
+      cityOption.geo = cityOption.series[0];
       this.mycharts.setOption(cityOption);
     },
     BookCity(name) {
@@ -1172,17 +1171,17 @@ export default {
     switchMap() {
       this.showAll = !this.showAll;
       const option = this.mycharts.getOption()
-      const data = option.series.data
+      const data = option.series[0].data
       for (let i in data) {
         if (data[i].dataset !== undefined) {
           if (this.showAll) {
-            data[i].value = data[i].dataset
+            data[i].value = data[i].dataset[0]
           } else {
             data[i].value = data[i].dataset[1]
           }
         }
       }
-      option.series.geo = option.series;
+      option.series.geo = option.series[0];
       this.mycharts.setOption(option)
     },
     getColor(risk) {
@@ -1898,7 +1897,7 @@ export default {
   },
   beforeDestroy() {
     option.geo.map = 'china';
-    option.series.map = 'china';
+    option.series[0].map = 'china';
     this.myChart.setOption(option)
   }
 }
