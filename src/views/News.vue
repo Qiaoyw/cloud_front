@@ -1,4 +1,5 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
+
   <div>
 
 <!--    政策-->
@@ -12,6 +13,37 @@
                 src="https://i.loli.net/2021/07/09/Js5XrHB3DVehd8Q.png" style="width: 100%">
         </v-img>
     </v-card>
+      <v-row
+          :align="start"
+          no-gutters
+          style="padding:20px"
+      >
+        <!--        各地政策-->
+        <p class="text-h4 font-weight-bold"
+           style="height: 40px; width: 100%">
+          <v-icon
+              large
+              color="blue darken-2"
+          >
+            mdi-message-text
+          </v-icon>
+          各地防控
+        </p>
+        <div
+            v-for="(n,index) in localNews"
+            :key="index"
+            @click="toLocale(n.src)"
+            style="margin-left: 10px;margin-right: 10px">
+          <p class="font-weight-regular;"
+             style="cursor:pointer;"
+          >
+            | &nbsp;<span style="font-weight: bold;" class="name">{{n.name}}</span>
+          </p>
+        </div>
+
+        <div></div>
+        <br>
+      </v-row>
 
     <v-row
     :align="start"
@@ -23,6 +55,7 @@
       class="d-flex flex-row flex-wrap justify-start"
       no-gutters
       >
+
 <!--        国家政策-->
         <p class="text-h4 font-weight-bold"
         style="height: 40px; width: 640px; margin-top: 15px">
@@ -52,29 +85,6 @@
           </div>
           <v-divider></v-divider>
         </div>
-<!--        各地政策-->
-        <p class="text-h4 font-weight-bold"
-           style="height: 40px; width: 740px">
-          <v-icon
-              large
-              color="blue darken-2"
-          >
-            mdi-message-text
-          </v-icon>
-          各地防控
-        </p>
-        <div
-        v-for="(n,index) in localNews"
-        :key="index"
-        @click="toLocale(n.src)"
-        style="margin-left: 10px;margin-right: 10px">
-          <p class="font-weight-regular;"
-             style="cursor:pointer;"
-          >
-              | &nbsp;<span style="font-weight: bold;" class="name">{{n.name}}</span>
-          </p>
-        </div>
-        <div></div>
       </v-col>
 
 <!--      时间轴-->

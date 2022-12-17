@@ -39,12 +39,12 @@ const getters = {
         title: '防控专栏',
         icon: 'mdi-head-lightbulb',
         to: '/knowledge/',
-      },
-      {
-        title: '历史数据',
-        icon: 'mdi-align-vertical-bottom',
-        to: '/provinceData/',
       }]
+      // {
+      //   title: '历史数据',
+      //   icon: 'mdi-align-vertical-bottom',
+      //   to: '/provinceData/',
+      // }]
   }
 }
 

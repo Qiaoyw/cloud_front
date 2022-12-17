@@ -135,7 +135,7 @@
           <el-card style="margin-top: 15px ;width: 100%">
             <v-tabs v-model="value">
               <v-tab style="font-size: 20px">疫情数据</v-tab>
-              <v-tab style="font-size: 20px">当前位置</v-tab>
+<!--              <v-tab style="font-size: 20px">当前位置</v-tab>-->
             </v-tabs>
             <el-table
                 :data="shownProvince"
