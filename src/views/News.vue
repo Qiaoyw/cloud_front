@@ -14,7 +14,6 @@
         </v-img>
     </v-card>
       <v-row
-          :align="start"
           no-gutters
           style="padding:20px"
       >
@@ -46,7 +45,7 @@
       </v-row>
 
     <v-row
-    :align="start"
+
     no-gutters
     style="padding:20px"
     >

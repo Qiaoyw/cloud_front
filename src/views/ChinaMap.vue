@@ -68,35 +68,35 @@
               @click="returnWholeCountry" style="background-color: #1e88e5; color: white;border-radius: 28px" v-show="isCity">
             返回全国地图
           </v-btn>
-          <v-btn
-              class="mx-2"
-              rounded
-              dark
-              color="#00796B"
-              v-show="isCity"
-              @click="BookCity(city)"
-              v-if="bookedProvinces.indexOf(city) === -1"
-          >
-            <v-icon right X-large>
-              mdi-checkbox-marked-circle
-            </v-icon>
-            <div style="margin-left: 10px;">订阅{{city}}</div>
-          </v-btn>
+<!--          <v-btn-->
+<!--              class="mx-2"-->
+<!--              rounded-->
+<!--              dark-->
+<!--              color="#00796B"-->
+<!--              v-show="isCity"-->
+<!--              @click="BookCity(city)"-->
+<!--              v-if="bookedProvinces.indexOf(city) === -1"-->
+<!--          >-->
+<!--            <v-icon right X-large>-->
+<!--              mdi-checkbox-marked-circle-->
+<!--            </v-icon>-->
+<!--            <div style="margin-left: 10px;">订阅{{city}}</div>-->
+<!--          </v-btn>-->
 
-          <v-btn
-              class="mx-2"
-              rounded
-              dark
-              color="#FFA000"
-              v-show="isCity"
-              @click="BookCity(city)"
-              v-else
-          >
-            <v-icon right X-large>
-              mdi-checkbox-marked-circle
-            </v-icon>
-            <div style="margin-left: 10px;">已订阅{{city}}</div>
-          </v-btn>
+<!--          <v-btn-->
+<!--              class="mx-2"-->
+<!--              rounded-->
+<!--              dark-->
+<!--              color="#FFA000"-->
+<!--              v-show="isCity"-->
+<!--              @click="BookCity(city)"-->
+<!--              v-else-->
+<!--          >-->
+<!--            <v-icon right X-large>-->
+<!--              mdi-checkbox-marked-circle-->
+<!--            </v-icon>-->
+<!--            <div style="margin-left: 10px;">已订阅{{city}}</div>-->
+<!--          </v-btn>-->
         </v-row>
         <!--        地图-->
         <v-row>
@@ -159,41 +159,41 @@
                 </template>
               </el-table-column>
 
-              <el-table-column
-                  prop="confirmed"
-                  v-if="isSelect"
-                  align="center"
-              >
-                <template slot="header" >
-                  <span style="font-size: 18px;font-weight:bold">是否订阅</span>
-                </template>
-                <template slot-scope="item">
-                  <el-button
-                      size="mini"
-                      type="primary"
-                      round
-                      icon="el-icon-star-off"
-                      @click="BookCity(item.row.provinceName)"
-                      v-show ="item.row.provinceName !== city"
-                      v-if="bookedProvinces1.indexOf(item.row.provinceName) === -1"
-                  >
-                    订阅
-                  </el-button>
+<!--              <el-table-column-->
+<!--                  prop="confirmed"-->
+<!--                  v-if="isSelect"-->
+<!--                  align="center"-->
+<!--              >-->
+<!--                <template slot="header" >-->
+<!--                  <span style="font-size: 18px;font-weight:bold">是否订阅</span>-->
+<!--                </template>-->
+<!--                <template slot-scope="item">-->
+<!--                  <el-button-->
+<!--                      size="mini"-->
+<!--                      type="primary"-->
+<!--                      round-->
+<!--                      icon="el-icon-star-off"-->
+<!--                      @click="BookCity(item.row.provinceName)"-->
+<!--                      v-show ="item.row.provinceName !== city"-->
+<!--                      v-if="bookedProvinces1.indexOf(item.row.provinceName) === -1"-->
+<!--                  >-->
+<!--                    订阅-->
+<!--                  </el-button>-->
 
-                  <el-button
-                      size="mini"
-                      v-else
-                      type="warning"
-                      round
-                      icon="el-icon-check"
-                      @click="BookCity(item.row.provinceName)"
-                  >
-                    已订阅
-                  </el-button>
+<!--                  <el-button-->
+<!--                      size="mini"-->
+<!--                      v-else-->
+<!--                      type="warning"-->
+<!--                      round-->
+<!--                      icon="el-icon-check"-->
+<!--                      @click="BookCity(item.row.provinceName)"-->
+<!--                  >-->
+<!--                    已订阅-->
+<!--                  </el-button>-->
 
-                </template>
+<!--                </template>-->
 
-              </el-table-column>
+<!--              </el-table-column>-->
 
               <el-table-column
                   prop="confirmed"
@@ -494,7 +494,7 @@ export default {
       myChart: null,
       isSelect:false,
       headers: [
-        { text: '是否订阅', value: 'action', align: 'start', sortable: false},
+        // { text: '是否订阅', value: 'action', align: 'start', sortable: false},
         { text: '省份', value: 'provinceName'},
         { text: '城市', value: 'name' },
         { text: '累计确诊', value: 'confirmed' },
@@ -1040,39 +1040,39 @@ export default {
       cityOption.geo = cityOption.series[0];
       this.mycharts.setOption(cityOption);
     },
-    BookCity(name) {
-      console.log(this.bookedProvinces)
-      // name = JSON.stringify(name)
-      var jsondata = {location: name};
-      var qs = require('qs')
-      // console.log(jsondata)
-      this.$axios.post('http://121.40.243.17:8081/subscription/add', qs.stringify(jsondata), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(res => {
-        if (res.data.message === "用户未登录") {
-          this.$message({
-            type: 'warning',
-            message: '请先登录！'
-          })
-        } else if (res.data.message === "您已订阅该地区") {
-          this.$message({
-            type: 'warning',
-            message: '您已订阅过该地区！'
-          })
-        } else if (res.data.message === "subscription success") {
-          this.$message({
-            type: 'success',
-            message: '订阅成功！'
-          })
-          const cityArr = ['上海', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '广西', '海南', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '北京', '天津', '重庆', '香港', '澳门', '台湾'];
-          if(this.contains(cityArr, name)){
-            this.bookedProvinces.push(name)
-          }
-          else {
-            this.bookedProvinces1.push(name)
-          }
-          this.$forceUpdate()
-        }
-      })
-    },
+    // BookCity(name) {
+    //   console.log(this.bookedProvinces)
+    //   // name = JSON.stringify(name)
+    //   var jsondata = {location: name};
+    //   var qs = require('qs')
+    //   // console.log(jsondata)
+    //   this.$axios.post('http://121.40.243.17:8081/subscription/add', qs.stringify(jsondata), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(res => {
+    //     if (res.data.message === "用户未登录") {
+    //       this.$message({
+    //         type: 'warning',
+    //         message: '请先登录！'
+    //       })
+    //     } else if (res.data.message === "您已订阅该地区") {
+    //       this.$message({
+    //         type: 'warning',
+    //         message: '您已订阅过该地区！'
+    //       })
+    //     } else if (res.data.message === "subscription success") {
+    //       this.$message({
+    //         type: 'success',
+    //         message: '订阅成功！'
+    //       })
+    //       const cityArr = ['上海', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '广西', '海南', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '北京', '天津', '重庆', '香港', '澳门', '台湾'];
+    //       if(this.contains(cityArr, name)){
+    //         this.bookedProvinces.push(name)
+    //       }
+    //       else {
+    //         this.bookedProvinces1.push(name)
+    //       }
+    //       this.$forceUpdate()
+    //     }
+    //   })
+    // },
     // 原来的数组
     myMap(arr, fn) {
       let newArr = []

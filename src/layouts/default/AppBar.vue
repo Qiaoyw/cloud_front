@@ -53,10 +53,10 @@
         /* webpackChunkName: "default.json-go-home" */
         './widgets/GoHome'
       ),
-      DefaultNotifications: () => import(
-        /* webpackChunkName: "default.json-notifications" */
-        './widgets/Notifications'
-      ),
+      // DefaultNotifications: () => import(
+      //   /* webpackChunkName: "default.json-notifications" */
+      //   './widgets/Notifications'
+      // ),
       DefaultSearch: () => import(
         /* webpackChunkName: "default.json-search" */
         './widgets/Search'

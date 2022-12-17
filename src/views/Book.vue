@@ -7,16 +7,16 @@
             :items="data"
             class="elevation-1"
         >
-          <template v-slot:item.cancel="{ item }">
-            <span style="font-weight:bold">
-              <v-btn
-                  depressed
-                  color="error"
-                  @click="cancelLoc(item.location)"
-                  style="width: 8px; height: 30px; border-radius: 20px"
-              >取消订阅</v-btn>
-            </span>
-          </template>
+<!--          <template v-slot:item.cancel="{ item }">-->
+<!--            <span style="font-weight:bold">-->
+<!--              <v-btn-->
+<!--                  depressed-->
+<!--                  color="error"-->
+<!--                  @click="cancelLoc(item.location)"-->
+<!--                  style="width: 8px; height: 30px; border-radius: 20px"-->
+<!--              >取消订阅</v-btn>-->
+<!--            </span>-->
+<!--          </template>-->
           <template v-slot:item.name="{ item }">
             <span style="font-weight:bold">{{item.location}}</span>
           </template>
